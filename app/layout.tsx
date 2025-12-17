@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/lib/theme-provider"
 import { FloatingNav } from "@/components/floating-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { ClientAuthProvider } from "@/components/auth-provider"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -24,11 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
-        <ThemeProvider>
-          <ThemeToggle />
-          {children}
-          <FloatingNav />
-        </ThemeProvider>
+        <ClientAuthProvider>
+          <ThemeProvider>
+            <ThemeToggle />
+            {children}
+            <FloatingNav />
+          </ThemeProvider>
+        </ClientAuthProvider>
         <Analytics />
       </body>
     </html>
